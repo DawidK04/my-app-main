@@ -4,6 +4,7 @@ import { RootStackParamList } from "../../types/Navigation";
 import ApiPostDetailsScreen from "../screens/ApiPostDetailsScreen";
 import ApiPostsScreen from "../screens/ApiPostsScreen";
 import DetailsScreen from "../screens/DetailsScreen";
+import FavouritePostsScreen from "../screens/FavouritePostsScreen";
 import HomeScreen from "../screens/HomeScreen";
 import TodosScreen from "../screens/TodosScreen";
 import UserDetailsScreen from "../screens/UserDetailsScreen";
@@ -43,6 +44,11 @@ export default function App() {
             name="Todos"
             component={TodosScreen}
             options={{ title: "Lista zadań" }}
+          />
+          <Stack.Screen
+            name="FavouritePosts"
+            component={FavouritePostsScreen}
+            options={{ title: "Ulubione" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

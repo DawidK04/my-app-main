@@ -1,9 +1,13 @@
 import { RouteProp } from "@react-navigation/native";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Button, StyleSheet, Text, View } from "react-native";
 import { useFetch } from "../../hooks/useFetch";
 import { Comment } from "../../types/Comment";
 import { RootStackParamList } from "../../types/Navigation";
 import { Post } from "../../types/Post";
+import { addFavouritePostId, isFavouritePostId, removeFavouritePostId } from "../services/favouriteStorage";
+
+
 
 type ApiPostDetailsRouteProp = RouteProp<
   RootStackParamList,
@@ -18,6 +22,26 @@ export default function ApiPostDetailsScreen({
   route,
 }: ApiPostDetailsScreenProps) {
   const { id } = route.params;
+
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkFavourite = async () => {
+      const result = await isFavouritePostId(id);
+      setIsFavourite(result);
+    };
+    checkFavourite();
+  }, [id]);
+
+  const toggleFavourite = async () => {
+    if (isFavourite) {
+      await removeFavouritePostId(id);
+      setIsFavourite(false);
+    } else {
+      await addFavouritePostId(id);
+      setIsFavourite(true);
+    }
+  };
 
   const {
     data: post,
@@ -61,6 +85,10 @@ export default function ApiPostDetailsScreen({
   return (
     <View style={styles.container}>
       <Text style={styles.meta}>ID posta: {id}</Text>
+      <Button
+        title={isFavourite ? "Usuń z ulubionych" : "Dodaj do ulubionych"}
+        onPress={toggleFavourite}
+      />
       <Text style={styles.comments}>
         Liczba komentarzy: {comments?.length ?? 0}
       </Text>

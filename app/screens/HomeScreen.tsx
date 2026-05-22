@@ -45,6 +45,10 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         title="Pokaż listę zadań (To-Do)"
         onPress={() => navigation.navigate("Todos")}
       />
+      <Button
+        title="Pokaż ulubione posty"
+        onPress={() => navigation.navigate("FavouritePosts")}
+      />
 
       <AddEventForm onAddEvent={addEvent} />
 

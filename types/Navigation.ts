@@ -20,6 +20,7 @@ export type RootStackParamList = {
     id: number;
   };
   Todos: undefined;
+  FavouritePosts: undefined;
 };
 
 export type ApiPostsScreenProps = {
